@@ -17,14 +17,15 @@ def handle_client(conn, addr):
     connected = True
     while connected:
         msg_length = conn.recv(HEADRER).decode(FORMAT)
-        msg_length = int(msg_length)
-        msg = conn.recv(msg_length).decode(FORMAT)
-        
-        if msg == DISCONNECT_MSG:
-            break
+        if msg_length:
+            msg_length = int(msg_length)
+            msg = conn.recv(msg_length).decode(FORMAT)
+            
+            if msg == DISCONNECT_MSG:
+                break
 
-        print("[{}]".format(addr))
-        print("[{}]".format(msg))
+            print("[{}]".format(addr))
+            print("[{}]".format(msg))
 
     conn.close()
 
@@ -37,7 +38,9 @@ def start():
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client , args=(conn, addr))
         thread.start()
+        print("")
         print("[ACTIVE CONNECTIONS] {}".format(threading.active_count() - 1))
 
 print("[STARTING] The server is starting...")
 start()
+
