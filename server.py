@@ -26,6 +26,7 @@ def handle_client(conn, addr):
 
             print("[{}]".format(addr))
             print("[{}]".format(msg))
+            conn.send("Received".encode(FORMAT))
 
     conn.close()
 
