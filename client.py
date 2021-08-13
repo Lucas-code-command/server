@@ -21,10 +21,9 @@ def send(msg):
     print(client.recv(HEADER).decode(FORMAT))
 
 print('Digite uma mensagem!')
-
 x = input()
-while x != send(DISCONNECT_MSG):
-    send(x)
-    x =input()
+send(x)
+disconnect = send(DISCONNECT_MSG)
 
-send(DISCONNECT_MSG)
+
+
